@@ -7,7 +7,7 @@ TARGET = GLTeapot
 all: $(TARGET)
 
 .cpp.o:
-	$(CC) -c $<
+	$(CC) -c $< $(LIBS)
 
 $(TARGET): %: %.o
 	$(CC) -o $@ $^ $(LIBS)
