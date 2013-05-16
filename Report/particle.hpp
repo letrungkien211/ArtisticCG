@@ -1,5 +1,5 @@
-#ifndef PARTICLE_HPP
-#define PARTICLE_HPP
+#ifndef PARTICLE_HPP_
+#define PARTICLE_HPP_
 
 #include <iostream>
 #include <vector>
@@ -20,9 +20,6 @@ using namespace Eigen;
 
 enum Shape {Sphere, Cubic};
 
-
-
-
 class Particle{
 public:
 	Vector3f position;
@@ -34,32 +31,10 @@ public:
 	float transparency;
 	Shape shape;
 
-
-	Particle(): position(0,0,0), velocity(0,0,0), color(1,0,0),
-			lifetime(1e6), age(0), size(1), transparency(0), shape(Sphere){
-
-	}
-
-	~Particle(){
-	}
-
-	void draw(){
-		if(shape == Sphere)
-			glutSolidSphere(size, 10,10);
-		else if(shape == Cubic)
-			glutSolidCube(size);
-	}
-
-	void collision(Particle &other){
-		Vector3f distance = position - other.position;
-		float dist = distance.squaredNorm();
-		if(dist < sqr(size+other.size)){
-			Vector3f displace = ((-velocity + other.velocity)*distance)*distance/dist;
-			velocity += displace;
-			other.velocity -= displace;
-		}
-	}
+	Particle();
+	virtual ~Particle();
+	void draw();
+	void collision(Particle &other);
 };
-
 
 #endif
